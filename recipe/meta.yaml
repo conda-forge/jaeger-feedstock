@@ -3,9 +3,9 @@
 {% set name = goname.split('/')[-1] %}
 {% set pkg_src = ('src/' + goname).replace("/", os.sep) %}
 
-# {% set goname_ui = "github.com/jaegertracing/jaeger-ui" %}
-# {% set version_ui = "1.5.0" %}
-# {% set pkg_src_ui = ('src/' + goname + '/jaeger-ui').replace("/", os.sep) %}
+{% set goname_ui = "github.com/jaegertracing/jaeger-ui" %}
+{% set version_ui = "1.6.0" %}
+{% set pkg_src_ui = ('src/' + goname + '/jaeger-ui').replace("/", os.sep) %}
 
 package:
   name: {{ name|lower }}
@@ -17,9 +17,9 @@ source:
     sha256: d908400a150a8ea29e56ed13a3ed6da7fdff66cafa18f3ec275b2b0af8c75f60
     patches:
       - git.patch
-  # - folder: {{ pkg_src_ui }}
-  #   url: https://{{ goname_ui }}/archive/v{{ version_ui }}.tar.gz
-  #   sha256: d908400a150a8ea29e56ed13a3ed6da7fdff66cafa18f3ec275b2b0af8c75f60
+  - folder: {{ pkg_src_ui }}
+    url: https://{{ goname_ui }}/archive/v{{ version_ui }}.tar.gz
+    sha256: 149530dd8fd2b2d03bcc9c9a594d1161f4641f0de12618ebda94d039407d8282
 
 build:
   number: 0
