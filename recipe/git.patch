@@ -8,7 +8,7 @@ index 8e49043..8e735b7 100644
  
 -GIT_SHA=$(shell git rev-parse HEAD)
 -GIT_CLOSEST_TAG=$(shell git describe --abbrev=0 --tags)
-+GIT_SHA="8c89e641eacafc5315de3c6486d398d6ce0d441c"
++GIT_SHA=$(shell git rev-parse "v${PKG_VERSION}")
 +GIT_CLOSEST_TAG="v${PKG_VERSION}"
  DATE=$(shell date -u +'%Y-%m-%dT%H:%M:%SZ')
  BUILD_INFO_IMPORT_PATH=github.com/jaegertracing/jaeger/pkg/version
