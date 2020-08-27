@@ -6,3 +6,5 @@ docker_image:
 - condaforge/linux-anvil-comp7
 go_compiler:
 - go-nocgo
+target_platform:
+- linux-64
