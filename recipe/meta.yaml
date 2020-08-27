@@ -1,5 +1,5 @@
 {% set goname = "github.com/jaegertracing/jaeger" %}
-{% set version = "1.17.0" %}
+{% set version = "1.19.2" %}
 {% set name = goname.split('/')[-1] %}
 {% set pkg_src = ('src/' + goname).replace("/", os.sep) %}
 
@@ -14,7 +14,7 @@ package:
 source:
   - folder: {{ pkg_src }}
     url: https://{{ goname }}/archive/v{{ version }}.tar.gz
-    sha256: 77ec433e44e0a45175bf23c9f594a863de7cf7697dff58d418c0aab2523b4731
+    sha256: bdf000930612c05d4991c5a83aa76324e9e1a9c2af028389e2f2f8585036fb42
     patches:
       - git.patch
   - folder: {{ pkg_src_ui }}
@@ -50,7 +50,7 @@ about:
   description: |
     Jaeger, inspired by Dapper and OpenZipkin, is a distributed tracing system released as open source by Uber Technologies.
     It is used for monitoring and troubleshooting microservices-based distributed systems.
-  doc_url: https://www.jaegertracing.io/docs/{{ version}}/
+  doc_url: https://www.jaegertracing.io/docs/{{ version }}/
   dev_url: https://github.com/jaegertracing/{{ name }}
 
 extra:
