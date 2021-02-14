@@ -55,10 +55,12 @@ about:
   summary: CNCF Jaeger, a Distributed Tracing Platform
 
   description: |
-    Jaeger, inspired by Dapper and OpenZipkin, is a distributed tracing system released as open source by Uber Technologies.
-    It is used for monitoring and troubleshooting microservices-based distributed systems.
-  doc_url: https://www.jaegertracing.io/docs/{{ version}}/
-  dev_url: https://github.com/jaegertracing/{{ name }}
+    Jaeger, inspired by Dapper and OpenZipkin, is a distributed tracing system
+    released as open source by Uber Technologies.
+    It is used for monitoring and troubleshooting microservices-based
+    distributed systems.
+  doc_url: https://www.jaegertracing.io/docs
+  dev_url: https://github.com/jaegertracing/jaeger
 
 extra:
   recipe-maintainers:
