@@ -1,26 +1,61 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -ex
+
+module='github.com/jaegertracing/jaeger'
+
+export CGO_ENABLED=1
+export GOPATH="$( pwd )"
+
 if [ `uname` = "Darwin" ]; then
-    export OSNAME="darwin"
+    export GOOS="darwin"
 else
-    export OSNAME="linux"
+    export GOOS="linux"
 fi
 
-set -x
-pushd src/github.com/jaegertracing/jaeger
-dep ensure -v
-make install-tools
-make build-ui
-make "build-binaries-${OSNAME}"
-mkdir -vp "${PREFIX}/bin"
-cp -v "cmd/all-in-one/all-in-one-${OSNAME}" "${PREFIX}/bin/jaeger-all-in-one"
-cp -v "cmd/agent/agent-${OSNAME}" "${PREFIX}/bin/jaeger-agent"
-cp -v "cmd/query/query-${OSNAME}" "${PREFIX}/bin/jaeger-query"
-cp -v "cmd/collector/collector-${OSNAME}" "${PREFIX}/bin/jaeger-collector"
-cp -v "cmd/ingester/ingester-${OSNAME}" "${PREFIX}/bin/jaeger-ingester"
-cp -v "examples/hotrod/hotrod-${OSNAME}" "${PREFIX}/bin/jaeger-hotrod"
-chmod -v 755 "${PREFIX}/bin/jaeger-all-in-one"
-chmod -v 755 "${PREFIX}/bin/jaeger-agent"
-chmod -v 755 "${PREFIX}/bin/jaeger-query"
-chmod -v 755 "${PREFIX}/bin/jaeger-collector"
-chmod -v 755 "${PREFIX}/bin/jaeger-ingester"
-chmod -v 755 "${PREFIX}/bin/jaeger-hotrod"
+# TODO: ppc64le, aarch64
+export GOARCH="amd64"
+
+env | grep GO
+
+# TODO: automate this by reading makefile?
+go get github.com/wadey/gocovmerge
+go get golang.org/x/lint/golint
+go get github.com/mjibson/esc
+go get github.com/securego/gosec/cmd/gosec
+go get honnef.co/go/tools/cmd/staticcheck
+
+make -C "src/${module}" \
+  install-tools \
+  build-platform-binaries
+
+# ensure staging destination
+mkdir bin third-party-licenses
+
+# copy built binaries
+cp -v "src/${module}/cmd/agent/agent-${GOOS}-${GOARCH}" "bin/jaeger-agent"
+cp -v "src/${module}/cmd/all-in-one/all-in-one-${GOOS}-${GOARCH}" "bin/jaeger-all-in-one"
+cp -v "src/${module}/cmd/collector/collector-${GOOS}-${GOARCH}" "bin/jaeger-collector"
+cp -v "src/${module}/cmd/ingester/ingester-${GOOS}-${GOARCH}" "bin/jaeger-ingester"
+cp -v "src/${module}/cmd/query/query-${GOOS}-${GOARCH}" "bin/jaeger-query"
+cp -v "src/${module}/cmd/tracegen/tracegen-${GOOS}-${GOARCH}" "bin/jaeger-tracegen"
+cp -v "src/${module}/examples/hotrod/hotrod-${GOOS}-${GOARCH}" "bin/example-hotrod"
+
+# make executable
+chmod -v 755 bin/*
+
+cd src
+# gather licenses
+# go-licenses save "${module}/cmd/agent" \
+#   --save_path=../third-party-licenses/jaeger-agent
+# go-licenses save "${module}/cmd/all-in-one/all-in-one-${GOOS}-${GOARCH}" \
+#   --save_path=../third-party-licenses/jaeger-all-in-one
+# go-licenses save "${module}/cmd/collector/collector-${GOOS}-${GOARCH}" \
+#   --save_path=../third-party-licenses/jaeger-collector
+# go-licenses save "${module}/cmd/ingester/ingester-${GOOS}-${GOARCH}" \
+#   --save_path=../third-party-licenses/jaeger-ingester
+# go-licenses save "${module}/cmd/query/query-${GOOS}-${GOARCH}" \
+#   --save_path=../third-party-licenses/jaeger-query
+# go-licenses save "${module}/cmd/tracegen/tracegen-${GOOS}-${GOARCH}" \
+#   --save_path=../third-party-licenses/jaeger-tracegen
+# go-licenses save "${module}/examples/hotrod/hotrod-${GOOS}-${GOARCH}" \
+#   --save_path=../third-party-licenses/example-hotrod

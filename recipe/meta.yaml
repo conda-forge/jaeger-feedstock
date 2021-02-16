@@ -1,34 +1,37 @@
 {% set goname = "github.com/jaegertracing/jaeger" %}
-{% set version = "1.17.0" %}
+{% set version = "1.21.0" %}
 {% set name = goname.split('/')[-1] %}
 {% set pkg_src = ('src/' + goname).replace("/", os.sep) %}
 
 {% set goname_ui = "github.com/jaegertracing/jaeger-ui" %}
-{% set version_ui = "1.6.0" %}
+{% set version_ui = "1.12.0" %}
 {% set pkg_src_ui = ('src/' + goname + '/jaeger-ui').replace("/", os.sep) %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}-build
   version: {{ version }}
 
 source:
   - folder: {{ pkg_src }}
     url: https://{{ goname }}/archive/v{{ version }}.tar.gz
-    sha256: 77ec433e44e0a45175bf23c9f594a863de7cf7697dff58d418c0aab2523b4731
+    sha256: 9361adeec029ab643e4cf0a451403649daa8e9e687291fc04a50d7e9a1732b82
     patches:
       - git.patch
   - folder: {{ pkg_src_ui }}
     url: https://{{ goname_ui }}/archive/v{{ version_ui }}.tar.gz
-    sha256: 149530dd8fd2b2d03bcc9c9a594d1161f4641f0de12618ebda94d039407d8282
+    sha256: 2b4f2fb35516360d0ad0e308365f351ae3cf4c20455f2e1dc72d3493baf476b1
 
 build:
   number: 0
-  binary_relocation: false
   skip: true  # [win]
+  binary_relocation: false
 
 requirements:
   build:
-    - {{ compiler('go') }}
+    - {{ compiler('c') }}
+    - {{ compiler('go-cgo') }}
+    # TODO: figure out how to make go-licenses work (many missing)
+    # - go-licenses
     - make
   host:
     - go-dep
@@ -37,23 +40,79 @@ requirements:
 
 test:
   commands:
-    - jaeger-all-in-one --help  # [not win]
-    - jaeger-all-in-one.exe --help  # [win]
+    - echo "tests in subpackages"
+
+outputs:
+  - name: {{ name }}
+    requirements:
+      run:
+        - {{ pin_compatible(name ~ "-all-in-one") }}
+        - {{ pin_compatible(name ~ "-agent") }}
+        - {{ pin_compatible(name ~ "-collector") }}
+        - {{ pin_compatible(name ~ "-ingester") }}
+        - {{ pin_compatible(name ~ "-query") }}
+        - {{ pin_compatible(name ~ "-example-hotrod") }}
+        # jaeger-tracegen is in the standard build, but not the distribution
+
+  - name: {{ name }}-agent
+    script: copy_bin.sh
+    test:
+      commands:
+        - {{ name }}-agent --help
+
+  - name: {{ name }}-all-in-one
+    script: copy_bin.sh
+    test:
+      commands:
+        - {{ name }}-all-in-one --help
+
+  - name: {{ name }}-collector
+    script: copy_bin.sh
+    test:
+      commands:
+        - {{ name }}-collector --help
+
+  - name: {{ name }}-ingester
+    script: copy_bin.sh
+    test:
+      commands:
+        - {{ name }}-ingester --help
+
+  - name: {{ name }}-query
+    script: copy_bin.sh
+    test:
+      commands:
+        - {{ name }}-query --help
+
+  - name: {{ name }}-tracegen
+    script: copy_bin.sh
+    test:
+      commands:
+        - {{ name }}-tracegen --help
+
+  - name: {{ name }}-example-hotrod
+    script: copy_bin.sh
+    test:
+      commands:
+        - example-hotrod --help
 
 about:
-  home: https://www.jaegertracing.io/
+  home: https://www.jaegertracing.io
   license: Apache-2.0
   license_family: Apache
   license_file: LICENSE
   summary: CNCF Jaeger, a Distributed Tracing Platform
 
   description: |
-    Jaeger, inspired by Dapper and OpenZipkin, is a distributed tracing system released as open source by Uber Technologies.
-    It is used for monitoring and troubleshooting microservices-based distributed systems.
-  doc_url: https://www.jaegertracing.io/docs/{{ version}}/
-  dev_url: https://github.com/jaegertracing/{{ name }}
+    Jaeger, inspired by Dapper and OpenZipkin, is a distributed tracing system
+    released as open source by Uber Technologies.
+    It is used for monitoring and troubleshooting microservices-based
+    distributed systems.
+  doc_url: https://www.jaegertracing.io/docs
+  dev_url: https://github.com/jaegertracing/jaeger
 
 extra:
   recipe-maintainers:
     - saulshanabrook
     - goanpeca
+    - bollwyvl
