@@ -8,7 +8,7 @@
 {% set pkg_src_ui = ('src/' + goname + '/jaeger-ui').replace("/", os.sep) %}
 
 package:
-  name: {{ name }}
+  name: {{ name }}-build
   version: {{ version }}
 
 source:
@@ -23,14 +23,15 @@ source:
 
 build:
   number: 0
-  binary_relocation: false
   skip: true  # [win]
+  binary_relocation: false
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('go-cgo') }}
-    - go-licenses
+    # TODO: figure out how to make go-licenses work (many missing)
+    # - go-licenses
     - make
   host:
     - go-dep
@@ -39,13 +40,61 @@ requirements:
 
 test:
   commands:
-    - jaeger-agent --help
-    - jaeger-all-in-one --help
-    - jaeger-collector --help
-    - jaeger-hotrod --help
-    - jaeger-ingester --help
-    - jaeger-query --help
-    - jaeger-tracegen --help
+    - echo "tests in subpackages"
+
+outputs:
+  - name: {{ name }}
+    requirements:
+      run:
+        - {{ pin_compatible(name ~ "-all-in-one") }}
+        - {{ pin_compatible(name ~ "-agent") }}
+        - {{ pin_compatible(name ~ "-collector") }}
+        - {{ pin_compatible(name ~ "-ingester") }}
+        - {{ pin_compatible(name ~ "-query") }}
+        - {{ pin_compatible(name ~ "-example-hotrod") }}
+        # jaeger-tracegen is in the standard build, but not the distribution
+
+  - name: {{ name }}-agent
+    script: copy_bin.sh
+    test:
+      commands:
+        - {{ name }}-agent --help
+
+  - name: {{ name }}-all-in-one
+    script: copy_bin.sh
+    test:
+      commands:
+        - {{ name }}-all-in-one --help
+
+  - name: {{ name }}-collector
+    script: copy_bin.sh
+    test:
+      commands:
+        - {{ name }}-collector --help
+
+  - name: {{ name }}-ingester
+    script: copy_bin.sh
+    test:
+      commands:
+        - {{ name }}-ingester --help
+
+  - name: {{ name }}-query
+    script: copy_bin.sh
+    test:
+      commands:
+        - {{ name }}-query --help
+
+  - name: {{ name }}-tracegen
+    script: copy_bin.sh
+    test:
+      commands:
+        - {{ name }}-tracegen --help
+
+  - name: {{ name }}-example-hotrod
+    script: copy_bin.sh
+    test:
+      commands:
+        - example-hotrod --help
 
 about:
   home: https://www.jaegertracing.io
