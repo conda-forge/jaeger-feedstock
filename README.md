@@ -1,5 +1,5 @@
-About jaeger
-============
+About jaeger-build
+==================
 
 Home: https://www.jaegertracing.io
 
@@ -11,10 +11,12 @@ Summary: CNCF Jaeger, a Distributed Tracing Platform
 
 Development: https://github.com/jaegertracing/jaeger
 
-Documentation: https://www.jaegertracing.io/docs/1.21.0/
+Documentation: https://www.jaegertracing.io/docs
 
-Jaeger, inspired by Dapper and OpenZipkin, is a distributed tracing system released as open source by Uber Technologies.
-It is used for monitoring and troubleshooting microservices-based distributed systems.
+Jaeger, inspired by Dapper and OpenZipkin, is a distributed tracing system
+released as open source by Uber Technologies.
+It is used for monitoring and troubleshooting microservices-based
+distributed systems.
 
 
 Current build status
@@ -62,20 +64,27 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-jaeger-green.svg)](https://anaconda.org/conda-forge/jaeger) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/jaeger.svg)](https://anaconda.org/conda-forge/jaeger) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/jaeger.svg)](https://anaconda.org/conda-forge/jaeger) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/jaeger.svg)](https://anaconda.org/conda-forge/jaeger) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-jaeger--agent-green.svg)](https://anaconda.org/conda-forge/jaeger-agent) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/jaeger-agent.svg)](https://anaconda.org/conda-forge/jaeger-agent) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/jaeger-agent.svg)](https://anaconda.org/conda-forge/jaeger-agent) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/jaeger-agent.svg)](https://anaconda.org/conda-forge/jaeger-agent) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-jaeger--all--in--one-green.svg)](https://anaconda.org/conda-forge/jaeger-all-in-one) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/jaeger-all-in-one.svg)](https://anaconda.org/conda-forge/jaeger-all-in-one) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/jaeger-all-in-one.svg)](https://anaconda.org/conda-forge/jaeger-all-in-one) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/jaeger-all-in-one.svg)](https://anaconda.org/conda-forge/jaeger-all-in-one) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-jaeger--collector-green.svg)](https://anaconda.org/conda-forge/jaeger-collector) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/jaeger-collector.svg)](https://anaconda.org/conda-forge/jaeger-collector) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/jaeger-collector.svg)](https://anaconda.org/conda-forge/jaeger-collector) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/jaeger-collector.svg)](https://anaconda.org/conda-forge/jaeger-collector) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-jaeger--example--hotrod-green.svg)](https://anaconda.org/conda-forge/jaeger-example-hotrod) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/jaeger-example-hotrod.svg)](https://anaconda.org/conda-forge/jaeger-example-hotrod) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/jaeger-example-hotrod.svg)](https://anaconda.org/conda-forge/jaeger-example-hotrod) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/jaeger-example-hotrod.svg)](https://anaconda.org/conda-forge/jaeger-example-hotrod) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-jaeger--ingester-green.svg)](https://anaconda.org/conda-forge/jaeger-ingester) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/jaeger-ingester.svg)](https://anaconda.org/conda-forge/jaeger-ingester) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/jaeger-ingester.svg)](https://anaconda.org/conda-forge/jaeger-ingester) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/jaeger-ingester.svg)](https://anaconda.org/conda-forge/jaeger-ingester) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-jaeger--query-green.svg)](https://anaconda.org/conda-forge/jaeger-query) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/jaeger-query.svg)](https://anaconda.org/conda-forge/jaeger-query) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/jaeger-query.svg)](https://anaconda.org/conda-forge/jaeger-query) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/jaeger-query.svg)](https://anaconda.org/conda-forge/jaeger-query) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-jaeger--tracegen-green.svg)](https://anaconda.org/conda-forge/jaeger-tracegen) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/jaeger-tracegen.svg)](https://anaconda.org/conda-forge/jaeger-tracegen) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/jaeger-tracegen.svg)](https://anaconda.org/conda-forge/jaeger-tracegen) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/jaeger-tracegen.svg)](https://anaconda.org/conda-forge/jaeger-tracegen) |
 
-Installing jaeger
-=================
+Installing jaeger-build
+=======================
 
-Installing `jaeger` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `jaeger-build` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `jaeger` can be installed with:
+Once the `conda-forge` channel has been enabled, `jaeger, jaeger-agent, jaeger-all-in-one, jaeger-collector, jaeger-example-hotrod, jaeger-ingester, jaeger-query, jaeger-tracegen` can be installed with:
 
 ```
-conda install jaeger
+conda install jaeger jaeger-agent jaeger-all-in-one jaeger-collector jaeger-example-hotrod jaeger-ingester jaeger-query jaeger-tracegen
 ```
 
 It is possible to list all of the versions of `jaeger` available on your platform with:
@@ -123,17 +132,17 @@ Terminology
                   produce the finished article (built conda distributions)
 
 
-Updating jaeger-feedstock
-=========================
+Updating jaeger-build-feedstock
+===============================
 
-If you would like to improve the jaeger recipe or build a new
+If you would like to improve the jaeger-build recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `conda-forge` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/jaeger-feedstock are
+Note that all branches in the conda-forge/jaeger-build-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks and branches in the main repository should only be used to
 build distinct package versions.
