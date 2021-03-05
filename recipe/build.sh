@@ -6,16 +6,22 @@ module='github.com/jaegertracing/jaeger'
 export CGO_ENABLED=1
 export GOPATH="$( pwd )"
 
+case "$target_platform" in
+    linux-64) go_arch_env="amd64" ;;
+    linux-aarch64) go_arch_env="arm64" ;;
+    linux-ppc64le) go_arch_env="ppc64le" ;;
+    win-64) go_arch_env="amd64" ;;
+    osx-64) go_arch_env="amd64" ;;
+    *) echo "unknown target_platform $target_platform" ; exit 1 ;;
+esac
+
 if [ `uname` = "Darwin" ]; then
     export GOOS="darwin"
 else
     export GOOS="linux"
 fi
 
-# TODO: ppc64le, aarch64
-export GOARCH="amd64"
-
-env | grep GO
+export GOARCH=$go_arch_env
 
 # TODO: automate this by reading makefile?
 go get github.com/wadey/gocovmerge
