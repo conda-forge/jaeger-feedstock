@@ -33,10 +33,10 @@ requirements:
     # TODO: figure out how to make go-licenses work (many missing)
     # - go-licenses
     - make
+    - nodejs >=12
+    - yarn
   host:
     - go-dep
-    - nodejs
-    - yarn
 
 test:
   commands:
