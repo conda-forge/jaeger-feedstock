@@ -22,7 +22,7 @@ source:
     sha256: 2b4f2fb35516360d0ad0e308365f351ae3cf4c20455f2e1dc72d3493baf476b1
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   binary_relocation: false
 
@@ -33,10 +33,10 @@ requirements:
     # TODO: figure out how to make go-licenses work (many missing)
     # - go-licenses
     - make
+    - nodejs >=12
+    - yarn
   host:
     - go-dep
-    - nodejs
-    - yarn
 
 test:
   commands:
