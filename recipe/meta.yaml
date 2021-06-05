@@ -1,5 +1,5 @@
 {% set goname = "github.com/jaegertracing/jaeger" %}
-{% set version = "1.22.0" %}
+{% set version = "1.23.0" %}
 {% set name = goname.split('/')[-1] %}
 {% set pkg_src = ('src/' + goname).replace("/", os.sep) %}
 
@@ -14,7 +14,7 @@ package:
 source:
   - folder: {{ pkg_src }}
     url: https://{{ goname }}/archive/v{{ version }}.tar.gz
-    sha256: 8858e008857b9855ce3d584f59760db1e7e232fa891c8e43b5e6cf3ce91070b4
+    sha256: 7b66b1525a35a35c088ef1117b344de88bf9a5c6500a3270b2dca197377f9f7a
     patches:
       - git.patch
   - folder: {{ pkg_src_ui }}
@@ -22,7 +22,7 @@ source:
     sha256: 2b4f2fb35516360d0ad0e308365f351ae3cf4c20455f2e1dc72d3493baf476b1
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win]
   binary_relocation: false
 
