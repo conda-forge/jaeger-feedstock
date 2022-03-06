@@ -4,7 +4,7 @@
 {% set pkg_src = ('src/' + goname).replace("/", os.sep) %}
 
 {% set goname_ui = "github.com/jaegertracing/jaeger-ui" %}
-{% set version_ui = "1.12.0" %}
+{% set version_ui = "1.21.0" %}
 {% set pkg_src_ui = ('src/' + goname + '/jaeger-ui').replace("/", os.sep) %}
 
 package:
@@ -19,7 +19,7 @@ source:
       - git.patch
   - folder: {{ pkg_src_ui }}
     url: https://{{ goname_ui }}/archive/v{{ version_ui }}.tar.gz
-    sha256: 2b4f2fb35516360d0ad0e308365f351ae3cf4c20455f2e1dc72d3493baf476b1
+    sha256: 06a29108cfa98993d7e53007925d892aaac0792185fefd3f66bf2a48260be7d3
 
 build:
   number: 0
