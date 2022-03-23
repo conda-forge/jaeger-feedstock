@@ -29,8 +29,8 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    - go-cgo >= 1.17
-    - go >= 1.17
+    - go-cgo >=1.17
+    - go >=1.17
     # TODO: figure out how to make go-licenses work (many missing)
     # - go-licenses
     - make
