@@ -3,7 +3,7 @@ set -ex
 
 module='github.com/jaegertracing/jaeger'
 
-export GO111MODULE=off
+# export GO111MODULE=off
 export CGO_ENABLED=1
 export GOPATH="$( pwd )"
 
